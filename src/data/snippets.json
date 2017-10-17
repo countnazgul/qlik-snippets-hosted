@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "name": "Set Analysis - between two dates",
+        "description": "Using `set analysis` to filter the records between two dates",
+        "code": "sum( {< SalesDate = {\">=$(=min(StartDate))<=$(=max(EndDate))\"} >} SalesAmount)",
+        "type": "Expression",
+        "filename": "",
+        "references": ["https://community.qlik.com/thread/33737", "https://community.qlik.com/blogs/qlikviewdesignblog/2015/09/28/dates-in-set-analysis"],
+        "tags": "set analysis"
+    },
+    {
+        "id": 2,
+        "name": "Set Analysis - between two variables",
+        "description": "Using `set analysis` to filter the records between two dates",
+        "code": "sum( {< SalesDate = {\">=$(vStartDate)<=$(vEndDate)\"} >}  SalesAmount)",
+        "type": "Expression",
+        "filename": "",
+        "references": ["https://community.qlik.com/thread/232503"],
+        "tags": "set analysis"
+    },
+    {
+        "id": 3,
+        "name": "Set Anaysis - Alternate States",
+        "description": "Assign a field to same field in another state",
+        "code": "sum( {< Manager = Group1::Manager >} SalesAmount )",
+        "type": "Expression",
+        "filename": "",
+        "references": ["http://livingqlikview.com/livingqlik-roots-the-ultimate-qlikview-set-analysis-reference/"],
+        "tags": "set analysis, state, aletenate state"
+    },
+    {
+        "id": 4,
+        "name": "Set Anaysis with Rank",
+        "description": "Filter the dimension based on `Set Analysis` calculation",
+        "code": "sum( {< Region = {\"=rank(avg(SalesAmount)) > 100\"} >} SalesAmount )",
+        "type": "Expression",
+        "filename": "",
+        "references": ["http://livingqlikview.com/livingqlik-roots-the-ultimate-qlikview-set-analysis-reference/"],
+        "tags": "set analysis, rank"
+    }
+]
