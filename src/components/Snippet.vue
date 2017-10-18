@@ -46,6 +46,7 @@
     .snippetlist {
         font-size: 14px;
         font-weight: normal;
+        min-height: 30px;
     }
 
     .selected {

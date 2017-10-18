@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <div v-for="snippet in snippets">
+  <div class="snippetsList">
+    <div v-for="snippet in snippets" style="height: 35px">
       <snippet :snippet="snippet" :selected="selected" v-on:showCode="showCode"></snippet>
     </div>
 
@@ -43,5 +43,11 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .snippetsList {
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    margin-top: 10px;
+    margin-left: 10px;
+    /*height: 100%;*/
+  }
 </style>
