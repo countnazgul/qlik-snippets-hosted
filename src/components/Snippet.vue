@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <div>
-        <div v-on:click="showCode" v-bind:class="{'selected': snippet.class, 'notSelected': !snippet.class, 'snippetlist': 1 } ">{{snippet.name}} ({{snippet.type}})</div>
+  <!--<div>-->
+    <!--<div>-->
+        <div v-on:click="showCode" v-bind:class="{'selected': snippet.class, 'notSelected': !snippet.class, 'snippetlist': 1, 'div_2': 1 } ">Content</div>
+        <!--{{snippet.name}} ({{snippet.type}})-->
         <!--<div>{{snippet.description}}</div>-->
         <!--<code>{{snippet.code}}</code>-->
         
-    </div>
-    <br>
-  </div>
+    <!--</div>-->
+    <!--<br>-->
+  <!--</div>-->
 </template>
 
 <script>
@@ -46,7 +47,7 @@
     .snippetlist {
         font-size: 14px;
         font-weight: normal;
-        min-height: 30px;
+        height: 30px;
     }
 
     .selected {

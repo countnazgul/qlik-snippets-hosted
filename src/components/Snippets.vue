@@ -1,9 +1,8 @@
 <template>
-  <div class="snippetsList">
-    <div v-for="snippet in snippets" style="height: 35px">
-      <snippet :snippet="snippet" :selected="selected" v-on:showCode="showCode"></snippet>
-    </div>
-
+  <div class="snippetsList div_3">
+    <!--<div  >-->
+      <snippet v-for="snippet in snippets" style="height: 30px" :snippet="snippet" :selected="selected" v-on:showCode="showCode" :key="snippet.id"></snippet>
+    <!--</div>-->
   </div>
 </template>
 
@@ -45,9 +44,10 @@
 <style scoped>
   .snippetsList {
     overflow-y: auto; 
-    overflow-x: hidden; 
-    margin-top: 10px;
-    margin-left: 10px;
+    width: 100%;
+    /*overflow-x: hidden; */ 
+    /*margin-top: 10px;*/
+    /*margin-left: 10px;*/
     /*height: 100%;*/
   }
 </style>

@@ -7,6 +7,8 @@ import {
   Row,
   Dialog,
   Button,
+  Table,
+  TableColumn  
   //MessageBox
 }
 from 'element-ui';
@@ -21,6 +23,8 @@ Vue.use(Col);
 Vue.use(Row);
 Vue.use(Dialog);
 Vue.use(Button);
+Vue.use(Table);
+Vue.use(TableColumn);
 Vue.prototype.$notify = Notification;
 // Vue.prototype.$confirm = MessageBox.confirm;
 Vue.use(VueClipboards);
