@@ -1,89 +1,85 @@
 <template>
-  <div id="app" v-bind:style="styleApp">
-    
+<div id="app" v-bind:style="styleApp">
 
     <el-row>
-      <el-col :span="24">
-        <div class="grid-content header">
-          <span>Qlik Snippets</span>
-          <img @click="dialogVisible = true" src="./assets/info-icon.png" class="about"></img>
-          <span class="line"></span>        
-        </div>
-      </el-col>
+        <el-col :span="24">
+            <div class="grid-content header">
+                <span>Qlik Snippets</span>
+                <img @click="dialogVisible = true" src="./assets/info-icon.png" class="about"></img>
+                <span class="line"></span>
+            </div>
+        </el-col>
     </el-row>
     <el-row>
-      <el-col :span="5">
-        <el-row>
-          <div style="margin-top: 5px;" class="grid-content bg-purple">Mini Header</div>
-        </el-row>
-        <el-row  style="margin-top: 5px;">
-          <div class="div_1"  v-bind:style="div1">
-          <snippets  :snippets="snippets" :selected="selected" v-on:showCode="showCode" filter="true" class="bg-purple-dark"/>          
-          </div>
-        </el-row>
-        
-      </el-col>
-      <el-col :span="19">        
-        <el-row >
-          Content
-          <span class="line1">&nbsp</span>Content
-        </el-row></el-col>
-    </el-row>   
-    <el-row>
-      <el-col :span="24">
-        <div>test</div>
-      </el-col>
-    </el-row>    
+        <el-col :span="7" style="margin-top: 0px;">
+            <el-row>
+                <el-select class="grid-content" v-model="selected" filterable placeholder="Snippet Search" no-match-text="Nothing found" @change="searchChanged" style="margin: -1px">
+                    <el-option v-for="snippet in snippets" :key="snippet.id" :label="snippet.name" :value="snippet.id">
+                    </el-option>
+                </el-select>
+            </el-row>
+            <el-row style="margin-top: 5px;">
+                <div class="div_1" v-bind:style="div1">
+                    <snippets :snippets="snippets" :selected="selected" v-on:showCode="showCode" filter="true" class="" />
+                </div>
+            </el-row>
+        </el-col>
+        <el-col :span="17">
+            <el-row>
+                <span class="line1">&nbsp</span>
+                <div v-if="selected" class="code">
+                    <b>Code</b> &nbsp <i @click="copyOk" class="el-icon-upload2 copy" title="Copy to clipboard"></i>
+                    <br>
+                    <code v-if="selected" class="qvcode" v-html="code.code"></code>
+                    <br>
+                    <br>
+                    <b>Description</b>
+                    <div v-html="code.description"></div>
+                    <br>
+                    <div v-if="code.references && code.references.length">
+                        <b>References</b>
+                        <br>
+                        <a class="reference" v-for="(reference, index) in code.references" :href="reference" target="_blank">Reference {{index + 1}}</a>
+                        <br>
+                    </div>
+                    <br>
+                    <div v-if="code.qvw">
+                        <b>Example</b>
+                        <br>
+                        <a :href="code.qvw">Download</a>
+                    </div>
+                </div>
+                <el-col :span="23" v-else class="message code">
+                    <div>Select or search for snippet</div>
+                </el-col>
+            </el-row>
+        </el-col>
+    </el-row>
 
+    <el-dialog title="Qlik Snippets (v0.5)" :visible.sync="dialogVisible" size="small" :before-close="handleClose">
+        <b>About</b>
+        <br>
+        <span>Currated list of useful Qlik expressions and script snippets</span>
+        <br>
+        <br>
+        <b>Contribute</b>
+        <br>
+        <span>If you want to contribute please sent an email to <b>admin@qlik-snippets.com</b> with the code and short description (having small qvw/qvf example file is always welcome)</span>
+        <br>
+        <br>
+        <span slot="footer" class="dialog-footer">
+        <span style="font-size: 12px; float: left;">This site is not not affiliated with Qlik | <a href="https://twitter.com/countnazgul" target="_blank">@countnazgul</a></span>
+        <el-button @click="dialogVisible = false">Close</el-button>
+        </span>
+    </el-dialog>
 
-
-
-    <!--<el-row>-->
-    <!--  <el-col :span="24">-->
-    <!--    <div class="grid-content header">-->
-    <!--      <span>Qlik Snippets</span>-->
-    <!--      <img @click="dialogVisible = true" src="./assets/info-icon.png" class="about"></img>-->
-    <!--      <span class="line"></span>        -->
-    <!--    </div>-->
-    <!--  </el-col>-->
-    <!--</el-row>-->
-    <!--<el-row>-->
-    <!--  <el-col :span="5">-->
-    <!--    <el-row>-->
-    <!--      <div style="margin-top: 5px;" class="grid-content bg-purple">Mini Header</div>-->
-    <!--    </el-row>-->
-    <!--    <el-row  style="margin-top: 5px;">-->
-    <!--      <div class="grid-content bg-purple-dark"></div>-->
-    <!--      <snippets  :snippets="snippets" :selected="selected" v-on:showCode="showCode" filter="true" class="bg-purple-dark"/>          -->
-    <!--    </el-row>-->
-        
-    <!--  </el-col>-->
-    <!--  <el-col :span="19">        -->
-    <!--    <el-row >-->
-    <!--      Content-->
-    <!--      <span class="line1">&nbsp</span>Content-->
-    <!--    </el-row></el-col>-->
-    <!--</el-row>   -->
-    <!--<el-row>-->
-    <!--  <el-col :span="24">-->
-    <!--    <div>test</div>-->
-    <!--  </el-col>-->
-    <!--</el-row>    -->
-    
-      
-    
-  </div>
+</div>
 </template>
 
 <script>
   import Snippets from './components/Snippets';
   import json from './data/snippets.json';
-  // import json from 'https://storage.googleapis.com/qlik-snippets/snippets.json';
-  // import vSelect from "vue-select";
   import axios from 'axios';
-
-  // import leonardoStyle from '../node_modules/leonardo-ui/dist/leonardo-ui.css';
-  // import leonardoJS from '../node_modules/leonardo-ui/dist/leonardo-ui.js';
 
   import showdown from 'showdown';
   var converter = new showdown.Converter();
@@ -204,7 +200,7 @@
   }
 
   .line1 {
-    margin-left: 10px;
+    margin-left: 2px;
     float: left;
     width: 1%;
     overflow: hidden;
@@ -216,44 +212,7 @@
     font-family: 'QlikView Sans';
     height: 100%;
     overflow: hidden;
-    /*-webkit-font-smoothing: antialiased;*/
-    /*-moz-osx-font-smoothing: grayscale;*/
-    /*text-align: center;*/
-    /*color: #2c3e50;*/
-    /*margin-top: 60px;*/
   }
-
-  /*html {*/
-
-  /*  height: 100%;*/
-
-  /*}*/
-
-  /*body {*/
-
-  /*  margin: 0px;*/
-
-  /*  height: 100%;*/
-
-  /*  min-height: 100%;*/
-
-  /*  position: absolute;*/
-
-  /*  top: 0;*/
-
-  /*  left: 0;*/
-
-  /*  right: 0;*/
-
-  /*  bottom: 0;*/
-
-  /*  overflow: auto;*/
-
-  /*  display: flex;*/
-
-  /*  flex-direction: column;*/
-
-  /*}*/
 
   html,
   body {
@@ -277,12 +236,10 @@
 
   .code {
     float: left;
-    width: 64%;
+    /*width: 64%;*/
     overflow: hidden;
     margin-top: 10px;
   }
-
-
 
   code {
     background-color: #e8e8e8;
@@ -377,59 +334,36 @@
     border-radius: 4px;
   }
 
-  .bg-purple-dark {
-    background: #99a9bf;
+  .div_1
+  {
+
+      /*height: 520px;*/
+      /*width: 350px;*/
+      /*margin: auto;*/
+      /*border: 1px black solid;*/
+      overflow-y: auto;
+      overflow-x: hidden;
   }
 
-  .bg-purple {
-    background: #d3dce6;
+  .div_3
+  {
+      float: left;
+      /*height: 350px;*/
+      /*width: 500px;*/
+      /*margin: auto;*/
+      /*border: 1px black solid;*/
+      overflow-y: auto;
+      overflow-x: hidden;
   }
 
-  .bg-purple-light {
-    background: #e5e9f2;
+  .div_2
+  {
+      height: 100px;
+      /*width: 100px;*/
+      /*border: 1px solid #A2A2A2;*/
+      /*float: left;*/
+      overflow-x: hidden;
   }
-
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
-
-
-            .div_1
-            {
-
-                /*height: 520px;*/
-                /*width: 350px;*/
-                /*margin: auto;*/
-                /*border: 1px black solid;*/
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-
-            .div_3
-            {
-                float: left;
-                /*height: 350px;*/
-                /*width: 500px;*/
-                /*margin: auto;*/
-                /*border: 1px black solid;*/
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-
-            .div_2
-            {
-                height: 100px;
-                /*width: 100px;*/
-                border: 1px solid #A2A2A2;
-                /*float: left;*/
-                overflow-x: hidden;
-            }
 
 
 </style>
