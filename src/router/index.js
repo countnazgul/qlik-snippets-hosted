@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Snippets from '../components/Snippets'
+import UI from '../components/UI'
+// import Snippet from '../components/Snippet';
+import Rest from '../components/Rest'
 
 Vue.use(Router)
 
@@ -8,10 +10,22 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      name: 'Home',
+      component: UI,
+      props: false
+    },    
+    {
       path: '/:id',
       name: 'Snippets',
-      component: Snippets,
-      props: true
-    }
+      component: UI,
+      props: false
+    },
+    {
+      path: '/api/:id',
+      name: 'Rest',
+      component: Rest,
+      props: false
+    }    
   ]
 })

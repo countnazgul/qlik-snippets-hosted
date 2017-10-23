@@ -1,6 +1,7 @@
 <template>
     <div v-on:click="showCode" v-bind:class="{'selected': snippet.class, 'notSelected': !snippet.class, 'snippetlist': 1, 'div_2': 1 } ">{{snippet.name}} ({{snippet.type}}) 
     <!--{{ class() }}-->
+    
     </div>
 </template>
 
@@ -72,7 +73,7 @@
     }
 
     .selected {
-        color: red;
+        color: #6cb33f;
         font-weight: bold;
         cursor: pointer;
     }
