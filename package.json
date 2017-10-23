@@ -1,6 +1,6 @@
 {
   "name": "qlik-snippets",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A Vue.js project",
   "author": "Stefan Stoichev <stefan.stoichev@gmail.com>",
   "private": true,
@@ -14,7 +14,8 @@
     "element-ui": "^1.4.6",
     "showdown": "^1.7.6",
     "vue": "^2.4.2",
-    "vue-clipboards": "^1.1.0"
+    "vue-clipboards": "^1.1.0",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

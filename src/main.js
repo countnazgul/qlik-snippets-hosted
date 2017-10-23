@@ -14,6 +14,8 @@ import {
 from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
 import VueClipboards from 'vue-clipboards';
+import router from './router';
+Vue.use(router);
 
 import App from './App';
 
@@ -34,6 +36,7 @@ Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  router,
   template: '<App/>',
   components: { App }
 });

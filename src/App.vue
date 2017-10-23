@@ -1,6 +1,6 @@
 <template>
 <div id="app" v-bind:style="styleApp">
-
+    <router-view></router-view>
     <el-row>
         <el-col :span="24">
             <div class="grid-content header">
@@ -13,12 +13,12 @@
     <el-row>
         <el-col :span="7" style="margin-top: 0px;">
             <el-row>
-                <el-select class="grid-content" v-model="selected" filterable placeholder="Snippet Search" no-match-text="Nothing found" @change="searchChanged" style="margin: -1px">
+                <el-select class="grid-content" v-model="selected" filterable placeholder="Snippet Search" no-match-text="Nothing found" @change="searchChanged" style="margin-top: -1px">
                     <el-option v-for="snippet in snippets" :key="snippet.id" :label="snippet.name" :value="snippet.id">
                     </el-option>
                 </el-select>
             </el-row>
-            <el-row style="margin-top: 5px;">
+            <el-row style="border-right: 1px solid #ccc;">
                 <div class="div_1" v-bind:style="div1">
                     <snippets :snippets="snippets" :selected="selected" v-on:showCode="showCode" filter="true" class="" />
                 </div>
@@ -26,7 +26,7 @@
         </el-col>
         <el-col :span="17">
             <el-row>
-                <span class="line1">&nbsp</span>
+                <!--<span class="line1">&nbsp</span>-->
                 <div v-if="selected" class="code">
                     <b>Code</b> &nbsp <i @click="copyOk" class="el-icon-upload2 copy" title="Copy to clipboard"></i>
                     <br>
@@ -56,7 +56,7 @@
         </el-col>
     </el-row>
 
-    <el-dialog title="Qlik Snippets (v0.5)" :visible.sync="dialogVisible" size="small" :before-close="handleClose">
+    <el-dialog title="Qlik Snippets (v0.5.1)" :visible.sync="dialogVisible" size="small" :before-close="handleClose">
         <b>About</b>
         <br>
         <span>Currated list of useful Qlik expressions and script snippets</span>
@@ -100,7 +100,8 @@
           height: '0px'
         },
         div1: {
-          height: '0px'
+          height: '0px',
+          'margin-top': '5px'
         }
       };
     },
@@ -117,10 +118,12 @@
 
         if (this.selected != code.id) {
           this.selected = code.id;
+          this.$router.push({ path: code.id.toString() });
         }
         else {
           this.selected = null;
           this.code = '';
+          this.$router.push({ path: '/' });
         }
       },
       searchChanged: function() {
@@ -151,8 +154,41 @@
     },
     mounted: function() {
       var _this = this;
+      var routerId = _this.$route.params.id;
 
       this.$nextTick(function() {
+
+
+        if (_this.$route.params.id) {
+
+
+          var exists = false;
+
+          for (var i = 0; i < _this.snippets.length; i++) {
+            // console.log(exists);
+            if (_this.snippets[i].id.toString() == _this.$route.params.id.toString()) {
+              exists = true;
+            }
+          }
+
+          if (exists == true) {
+            _this.selected = _this.$route.params.id;
+          }
+          else {
+            _this.$router.push({ path: '/' });
+
+            this.$notify({
+              title: 'Error',
+              message: "Snippet (id = " + routerId +") do not exists :(",
+              type: 'error',
+              duration: 4000
+            });
+          }
+        }
+
+
+
+
         // window.addEventListener('resize', this.getWindowWidth);
         window.addEventListener('resize', this.getWindowHeight);
 
@@ -239,6 +275,7 @@
     /*width: 64%;*/
     overflow: hidden;
     margin-top: 10px;
+    margin-left: 10px;
   }
 
   code {
@@ -279,7 +316,7 @@
   }
 
   .el-select {
-    width: 101%;
+    width: 100%;
   }
 
   .notSelected {
@@ -334,36 +371,31 @@
     border-radius: 4px;
   }
 
-  .div_1
-  {
+  .div_1 {
 
-      /*height: 520px;*/
-      /*width: 350px;*/
-      /*margin: auto;*/
-      /*border: 1px black solid;*/
-      overflow-y: auto;
-      overflow-x: hidden;
+    /*height: 520px;*/
+    /*width: 350px;*/
+    /*margin: auto;*/
+    /*border: 1px black solid;*/
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
-  .div_3
-  {
-      float: left;
-      /*height: 350px;*/
-      /*width: 500px;*/
-      /*margin: auto;*/
-      /*border: 1px black solid;*/
-      overflow-y: auto;
-      overflow-x: hidden;
+  .div_3 {
+    float: left;
+    /*height: 350px;*/
+    /*width: 500px;*/
+    /*margin: auto;*/
+    /*border: 1px black solid;*/
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
-  .div_2
-  {
-      height: 100px;
-      /*width: 100px;*/
-      /*border: 1px solid #A2A2A2;*/
-      /*float: left;*/
-      overflow-x: hidden;
+  .div_2 {
+    height: 100px;
+    /*width: 100px;*/
+    /*border: 1px solid #A2A2A2;*/
+    /*float: left;*/
+    overflow-x: hidden;
   }
-
-
 </style>

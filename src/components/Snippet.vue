@@ -1,5 +1,7 @@
 <template>
-    <div v-on:click="showCode" v-bind:class="{'selected': snippet.class, 'notSelected': !snippet.class, 'snippetlist': 1, 'div_2': 1 } ">{{snippet.name}} ({{snippet.type}})</div>
+    <div v-on:click="showCode" v-bind:class="{'selected': snippet.class, 'notSelected': !snippet.class, 'snippetlist': 1, 'div_2': 1 } ">{{snippet.name}} ({{snippet.type}}) 
+    <!--{{ class() }}-->
+    </div>
 </template>
 
 <script>
@@ -18,6 +20,7 @@
         },
         watch: {
             selected: function(newVal, oldVal) {
+                // console.log(newVal, oldVal)
                 var _this = this;
 
                 if (newVal == _this.snippet.id) {
@@ -28,6 +31,32 @@
                 }
 
                 _this.$forceUpdate();
+            },
+            '$route': function() {
+                // var _this = this;
+                // console.log(_this.$route.params.id);
+            }
+        },
+        mounted: function() {
+            var _this = this;
+
+            //     // _this.selected = _this.snippet.id.toString();
+            //     if(_this.selected > 0) {
+            if (_this.selected.toString() == _this.snippet.id.toString()) {
+                _this.snippet.class = true;
+                _this.$forceUpdate();
+                // console.log(_this.snippet);
+                //             this.$emit('showCode', _this.snippet);
+                //             // console.log(_this.selected.toString(), _this.snippet.id.toString());
+                //             //  _this.snippet.class = true;
+                //             //  console.log(_this.snippet.class)
+                //         }
+            }
+        },
+        computed: {
+            class() {
+                
+                // return this.value === 'Y' ? 'checked' : 'unchecked'
             }
         }
     };
