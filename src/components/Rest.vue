@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{ code }}
+        {{ code }} <router-link v-if="notExists" :to="'/'">Go back</router-link>
     </div>
 </template>
 
@@ -11,7 +11,8 @@
         name: 'Rest',
         data() {
             return {
-                code: ''
+                code: '',
+                notExists: false
             };
         },
         mounted: function() {
@@ -28,6 +29,7 @@
             
             if( exists == false ) {
                 _this.code = 'The specified snippet id do not exists!';
+                _this.notExists = true;
             }
         }
     };

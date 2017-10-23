@@ -56,7 +56,7 @@
         </el-col>
     </el-row>
 
-    <el-dialog title="Qlik Snippets (v0.6.0)" :visible.sync="dialogVisible" size="small" :before-close="handleClose">
+    <el-dialog title="Qlik Snippets (v0.6.1)" :visible.sync="dialogVisible" size="small" :before-close="handleClose">
         <b>About</b>
         <br>
         <span>Currated list of useful Qlik expressions and script snippets</span>
