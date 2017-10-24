@@ -143,6 +143,7 @@
         for (var i = 0; i < _this.snippets.length; i++) {
           if (_this.snippets[i].id == _this.selected) {
             _this.code = _this.snippets[i];
+            _this.$router.push({ name: 'Snippets', params: { id: _this.selected }});
             _this.code.description = converter.makeHtml(_this.code.description);
           }
         }
