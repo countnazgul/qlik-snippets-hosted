@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueAnalytics from 'vue-analytics';
 import {
   Select,
   Option,
@@ -16,8 +17,13 @@ import 'element-ui/lib/theme-default/index.css';
 import VueClipboards from 'vue-clipboards';
 import router from './router';
 Vue.use(router);
+Vue.use(VueAnalytics, {
+  id: 'UA-108541744-1'
+});
+
 
 import App from './App';
+
 
 Vue.use(Select);
 Vue.use(Option);

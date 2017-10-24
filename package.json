@@ -14,6 +14,7 @@
     "element-ui": "^1.4.6",
     "showdown": "^1.7.6",
     "vue": "^2.4.2",
+    "vue-analytics": "^5.1.1",
     "vue-clipboards": "^1.1.0",
     "vue-router": "^3.0.1"
   },
