@@ -5,8 +5,8 @@ import {
   Notification,
   Col,
   Row,
-  Dialog,
-  Button,
+  // Dialog,
+  // Button,
   Table,
   TableColumn  
   //MessageBox
@@ -23,8 +23,8 @@ Vue.use(Select);
 Vue.use(Option);
 Vue.use(Col);
 Vue.use(Row);
-Vue.use(Dialog);
-Vue.use(Button);
+// Vue.use(Dialog);
+// Vue.use(Button);
 Vue.use(Table);
 Vue.use(TableColumn);
 Vue.prototype.$notify = Notification;

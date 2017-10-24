@@ -5,13 +5,7 @@
 </template>
 
 <script>
-  //import UI from './components/UI';
-
   export default {
-    //name: 'UI',
-    components: {
-      //UI
-    },
     data() {
       return {
 
@@ -21,5 +15,4 @@
 </script>
 
 <style>
-
 </style>

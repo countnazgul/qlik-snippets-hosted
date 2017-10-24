@@ -5,7 +5,10 @@
         <el-col :span="24">
             <div class="grid-content header">
                 <span>Qlik Snippets</span>
-                <img @click="dialogVisible = true" src="../assets/info-icon.png" class="about"></img>
+                <router-link to="/documentation"><img src="../assets/info-icon.png" class="about"></img></router-link>
+                  
+
+                <!--<div class="about"><router-link to="/documentation">About</router-link></div>-->
                 <span class="line"></span>
             </div>
         </el-col>
@@ -56,22 +59,22 @@
         </el-col>
     </el-row>
 
-    <el-dialog title="Qlik Snippets (v0.6.1)" :visible.sync="dialogVisible" size="small" :before-close="handleClose">
-        <b>About</b>
-        <br>
-        <span>Currated list of useful Qlik expressions and script snippets</span>
-        <br>
-        <br>
-        <b>Contribute</b>
-        <br>
-        <span>If you want to contribute please sent an email to <b>admin@qlik-snippets.com</b> with the code and short description (having small qvw/qvf example file is always welcome)</span>
-        <br>
-        <br>
-        <span slot="footer" class="dialog-footer">
-        <span style="font-size: 12px; float: left;">This site is not not affiliated with Qlik | <a href="https://twitter.com/countnazgul" target="_blank">@countnazgul</a></span>
-        <el-button @click="dialogVisible = false">Close</el-button>
-        </span>
-    </el-dialog>
+    <!--<el-dialog title="Qlik Snippets (v0.6.1)" :visible.sync="dialogVisible" size="small" :before-close="handleClose">-->
+    <!--    <b>About</b>-->
+    <!--    <br>-->
+    <!--    <span>Currated list of useful Qlik expressions and script snippets</span>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <b>Contribute</b>-->
+    <!--    <br>-->
+    <!--    <span>If you want to contribute please sent an email to <b>admin@qlik-snippets.com</b> with the code and short description (having small qvw/qvf example file is always welcome)</span>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <span slot="footer" class="dialog-footer">-->
+    <!--    <span style="font-size: 12px; float: left;">This site is not not affiliated with Qlik | <a href="https://twitter.com/countnazgul" target="_blank">@countnazgul</a></span>-->
+    <!--    <el-button @click="dialogVisible = false">Close</el-button>-->
+    <!--    </span>-->
+    <!--</el-dialog>-->
     
 </div>
 </template>
@@ -118,7 +121,7 @@
 
         if (this.selected != code.id) {
           this.selected = code.id;
-          this.$router.push({ path: code.id.toString() });
+          this.$router.push({ name: 'Snippets', params: { id: code.id.toString() } });
         }
         else {
           this.selected = null;
@@ -154,7 +157,7 @@
     },
     mounted: function() {
       var _this = this;
-      console.log(_this.$route)
+      //console.log(_this.$route)
       
       // if(_this.$route.name == 'Rest') {
       //   _this.rest = false; 

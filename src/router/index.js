@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import UI from '../components/UI'
-// import Snippet from '../components/Snippet';
-import Rest from '../components/Rest'
+import Vue from 'vue';
+import Router from 'vue-router';
+import UI from '../components/UI';
+import Rest from '../components/Rest';
+import Documentation from '../components/Documentation';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -16,7 +16,7 @@ export default new Router({
       props: false
     },    
     {
-      path: '/:id',
+      path: '/snippet/:id',
       name: 'Snippets',
       component: UI,
       props: false
@@ -26,6 +26,12 @@ export default new Router({
       name: 'Rest',
       component: Rest,
       props: false
+    },
+    {
+      path: '/documentation',
+      name: 'Documentation',
+      component: Documentation,
+      props: false
     }    
   ]
-})
+});
