@@ -33,9 +33,7 @@
                 <div v-if="selected" class="code">
                     <b>Code</b> &nbsp <i v-clipboard="code.code"  @success="copyOk" @error="copyNotOk" class="el-icon-upload2 copy" title="Copy to clipboard"></i>
                     <br>
-                    <code v-if="selected" class="qvcode" v-html="code.code"></code>
-                    <br>
-                    <br>
+                    <pre v-if="selected" class="qvcode" v-html="code.code" style="background-color: #e8e8e8;"></pre>
                     <b>Description</b>
                     <div v-html="code.description"></div>
                     <br>
