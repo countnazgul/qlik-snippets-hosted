@@ -1,5 +1,5 @@
 {
-    "docs": "# About \n\nCurrated list of useful Qlik expressions and script snippets.\n\nSource can be found in [GitHub](https://github.com/countnazgul/qlik-snippets)\n\n# Contribute\nIf you want to contribute please send an email to **admin@qlik-snippets.com** with the code and short description.\n\n**qvw/qvf** example is nice to have but not mandatory.\n\n# Legal\n**This site is not not affiliated with Qlik** and its under [MIT License](https://opensource.org/licenses/MIT)\n\n#Version\nVVVV",
+    "docs": "# About \n\nCurrated list of useful Qlik expressions and script snippets.\n\nSource can be found in [GitHub](https://github.com/countnazgul/qlik-snippets)\n\n# Contribute\nIf you want to contribute please send an email to **admin@qlik-snippets.com** with the code and short description.\n\n**qvw/qvf** example is nice to have but not mandatory.\n\n# Legal\n**This site is not not affiliated with Qlik** and its under [MIT License](https://opensource.org/licenses/MIT)\n\n# Version\nVVVV",
     "version": "0.7.0"
 }
 

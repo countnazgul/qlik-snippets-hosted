@@ -4,7 +4,7 @@
     <el-row>
         <el-col :span="24">
             <div class="grid-content header">
-                <span>Qlik Snippets</span>
+                <router-link to="/"><span>Qlik Snippets</span></router-link>
                 <router-link to="/documentation"><img src="../assets/info-icon.png" class="about"></img></router-link>
                   
 
@@ -31,7 +31,7 @@
             <el-row>
                 <!--<span class="line1">&nbsp</span>-->
                 <div v-if="selected" class="code">
-                    <b>Code</b> &nbsp <i @click="copyOk" class="el-icon-upload2 copy" title="Copy to clipboard"></i>
+                    <b>Code</b> &nbsp <i v-clipboard="code.code"  @success="copyOk" @error="copyNotOk" class="el-icon-upload2 copy" title="Copy to clipboard"></i>
                     <br>
                     <code v-if="selected" class="qvcode" v-html="code.code"></code>
                     <br>
@@ -50,7 +50,14 @@
                         <b>Example</b>
                         <br>
                         <a :href="code.qvw">Download</a>
+                        <br>
+                        <br>
                     </div>
+                    <div v-if="code.contributor">
+                        <b>Contributor</b>
+                        <br>
+                        <a :href="code.contributor.link">{{code.contributor.name}}</a>
+                    </div>                    
                 </div>
                 <el-col :span="23" v-else class="message code">
                     <div>Select or search for snippet</div>
@@ -149,6 +156,16 @@
           duration: 1000
         });
       },
+      copyNotOk() {
+        const h = this.$createElement;
+
+        this.$notify({
+          title: 'Error',
+          message: 'Copy to clipboard failed',
+          type: 'error',
+          duration: 2000
+        });
+      },      
       getWindowHeight(event) {
         var _this = this;
         _this.styleApp.height = document.documentElement.clientHeight + 'px';
@@ -158,11 +175,11 @@
     mounted: function() {
       var _this = this;
       //console.log(_this.$route)
-      
+
       // if(_this.$route.name == 'Rest') {
       //   _this.rest = false; 
       // }
-      
+
       var routerId = _this.$route.params.id;
 
       this.$nextTick(function() {
@@ -188,7 +205,7 @@
 
             this.$notify({
               title: 'Error',
-              message: "Snippet (id = " + routerId +") do not exists :(",
+              message: "Snippet (id = " + routerId + ") do not exists :(",
               type: 'error',
               duration: 4000
             });
@@ -406,5 +423,15 @@
     /*border: 1px solid #A2A2A2;*/
     /*float: left;*/
     overflow-x: hidden;
+  }
+
+
+  .router-link-active,
+  .router-link-exact-active {
+    /*background-color: indianred;*/
+    cursor: pointer;
+    text-decoration-line: none;
+    text-decoration-color: black;
+    color: black;
   }
 </style>

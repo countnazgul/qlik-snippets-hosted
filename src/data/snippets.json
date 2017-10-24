@@ -8,7 +8,8 @@
         "filename": "",
         "references": ["https://community.qlik.com/thread/33737", "https://community.qlik.com/blogs/qlikviewdesignblog/2015/09/28/dates-in-set-analysis"],
         "tags": "set analysis",
-        "qvw": "https://s3.eu-west-2.amazonaws.com/qlik-snippets/Sales.qvw"
+        "qvw": "https://s3.eu-west-2.amazonaws.com/qlik-snippets/Sales.qvw",
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" }
     },
     {
         "id": 2,
@@ -18,7 +19,8 @@
         "type": "Expression",
         "filename": "",
         "references": ["https://community.qlik.com/thread/232503"],
-        "tags": "set analysis"
+        "tags": "set analysis",
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" }
     },
     {
         "id": 3,
@@ -28,7 +30,8 @@
         "type": "Expression",
         "filename": "",
         "references": ["http://livingqlikview.com/livingqlik-roots-the-ultimate-qlikview-set-analysis-reference/"],
-        "tags": "set analysis, state, aletenate state"
+        "tags": "set analysis, state, aletenate state",
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" }
     },
     {
         "id": 4,
@@ -38,6 +41,7 @@
         "type": "Expression",
         "filename": "",
         "references": ["http://livingqlikview.com/livingqlik-roots-the-ultimate-qlikview-set-analysis-reference/"],
-        "tags": "set analysis, rank"
+        "tags": "set analysis, rank",
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" }
     }
 ]
