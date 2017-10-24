@@ -4,7 +4,7 @@
     <el-row>
         <el-col :span="24">
             <div class="grid-content header">
-                <router-link to="/"><span>Qlik Snippets</span></router-link>
+                <router-link to="/" @click.native="headerClick" class="mainLink"><span>Qlik Snippets</span></router-link>
                 <router-link to="/documentation"><img src="../assets/info-icon.png" class="about"></img></router-link>
                   
 
@@ -117,6 +117,9 @@
       handleClose(done) {
 
       },
+      headerClick: function() {
+        this.selected = null;
+      },
       showCode: function(code) {
         // console.log('code app!');
         this.code = code;
@@ -209,9 +212,6 @@
             });
           }
         }
-
-
-
 
         // window.addEventListener('resize', this.getWindowWidth);
         window.addEventListener('resize', this.getWindowHeight);
@@ -424,12 +424,11 @@
   }
 
 
-  .router-link-active,
-  .router-link-exact-active {
+  .mainLink {
     /*background-color: indianred;*/
     cursor: pointer;
-    text-decoration-line: none;
-    text-decoration-color: black;
-    color: black;
+    text-decoration-line: none !important;
+    text-decoration-color: black !important;
+    color: black !important;
   }
 </style>
