@@ -24,6 +24,7 @@ export default {
       }
     },
     mounted: function() {
+      // console.log(this.selected)
       // axios.get('https://httpbin.org/ip')
       //   .then(function(response) {
       //     console.log(response.data);

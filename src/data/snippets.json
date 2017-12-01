@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": "mSzfEyrOneKY",
         "name": "Set Analysis - between two dates",
         "description": "Using `set analysis` to filter the records between two dates",
         "code": "sum( {< SalesDate = {\">=$(=min(StartDate))<=$(=max(EndDate))\"} >} SalesAmount)",
@@ -8,10 +8,11 @@
         "filename": "",
         "references": ["https://community.qlik.com/thread/33737", "https://community.qlik.com/blogs/qlikviewdesignblog/2015/09/28/dates-in-set-analysis"],
         "tags": "set analysis",
-        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" }
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" },
+        "live": true
     },
     {
-        "id": 2,
+        "id": "zlAucsyLjAmO",
         "name": "Set Analysis - between two variables",
         "description": "Using `set analysis` to filter the records between two dates",
         "code": "sum( {< SalesDate = {\">=$(vStartDate)<=$(vEndDate)\"} >}  SalesAmount)",
@@ -19,10 +20,11 @@
         "filename": "",
         "references": ["https://community.qlik.com/thread/232503"],
         "tags": "set analysis",
-        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" }
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" },
+        "live": true
     },
     {
-        "id": 3,
+        "id": "rOgMaJTtfbcK",
         "name": "Set Anaysis - Alternate States",
         "description": "Assign a field to same field in another state",
         "code": "sum( {< Manager = Group1::Manager >} SalesAmount )",
@@ -30,10 +32,11 @@
         "filename": "",
         "references": ["http://livingqlikview.com/livingqlik-roots-the-ultimate-qlikview-set-analysis-reference/"],
         "tags": "set analysis, state, aletenate state",
-        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" }
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" },
+        "live": true
     },
     {
-        "id": 4,
+        "id": "OPWjtHFEzjHm",
         "name": "Set Anaysis with Rank",
         "description": "Filter the dimension based on `Set Analysis` calculation",
         "code": "sum( {< Region = {\"=rank(avg(SalesAmount)) > 100\"} >} SalesAmount )",
@@ -41,10 +44,11 @@
         "filename": "",
         "references": ["http://livingqlikview.com/livingqlik-roots-the-ultimate-qlikview-set-analysis-reference/"],
         "tags": "set analysis, rank",
-        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" }
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" },
+        "live": true
     },
     {
-        "id": 5,
+        "id": "EAhZbgakBrRz",
         "name": "Variable with Arguments/Parameters",
         "description": "Having same calculation but with different conditions can be simplified by using variables with arguments.<br>Unlimited numbers of arguments can be used. Variable definistion shouldn't start with `=` sign.<br>The arguments are defined in the variable with `$x` where `x` is incremental number.<br>When used the variable need to be evaluated and arguments are provided as function params:<br>`$(VariableName(param1, param2, param3, ...))`",
         "code": "vTemp variable definition:<br>  sum( 100 + $1 + $2 + $3 )<br><br>Expression usage:<br> =$(vTemp(1,2,0))",
@@ -53,6 +57,29 @@
         "references": ["https://community.qlik.com/thread/205922"],
         "tags": "variable, parameters, arguments",
         "qvw": "https://s3.eu-west-2.amazonaws.com/qlik-snippets/Variable_with_parameters.qvw",
-        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" }
-    }
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" },
+        "live": true
+    },
+    {
+        "id": "MJtcdPoAOzbx",
+        "name": "Set Analysis - Using max()/min() function",
+        "description": "Using `max()`/`min()` function inside `set analysis`.",
+        "code": "sum( {< Date = {\"$(=Max(Date))\"} >} SalesAmount )",
+        "type": "Expression",
+        "references": ["https://community.qlik.com/thread/179869"],
+        "tags": "set-analysis, max",
+        "contributor": { "name": "qlik-snippets", "link": "http://qlik-snippets.com" },
+        "live": true
+    },
+    {
+        "id": "MJtcdPoAOzb1",
+        "name": "Calendar script",
+        "description": "_The most effective calendar script_.<br />Two things can/must be changed - `DateId` field (to match the script one) and date format",
+        "code": "Calendar:\nLoad\n  TempDate                                             as DateId, \n  date(TempDate, 'DD/MM/YYYY')                         as Date,\n  week(TempDate)                                       as Week, \n  year(TempDate)                                       as Year, \n  monthname(TempDate)                                  as Month,\n  day(TempDate)                                        as Day,\n  'Q' & ceil(month(TempDate) / 3)                      as Quarter, \n  week(weekstart(TempDate)) & '-' & WeekYear(TempDate) as WeekYear,\n  weekDay(TempDate)                                    as WeekDay \n;\nLoad\n  date(mindate + IterNo()) as TempDate,\n  maxdate\nWhile\n   mindate + IterNo() <= maxdate\n;\nLoad\n  min(FieldValue('DateId', recno()))-1 as mindate,\n  max(FieldValue('DateId', recno()))   as maxdate\nAutoGenerate\n   FieldValueCount('DateId')\n;",
+        "type": "Script",
+        "references": ["http://qlikviewcookbook.com/2015/05/better-calendar-scripts/"],
+        "tags": "calendar, script",
+        "contributor": { "name": "QlikView Cook Book", "link": "http://qlikviewcookbook.com" },
+        "live": true
+    }    
 ]

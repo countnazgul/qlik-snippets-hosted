@@ -1,7 +1,7 @@
 <template>
-<div id="app" v-bind:style="styleApp">
+<div id="app" v-bind:style="styleApp" >
     <router-view></router-view>
-    <el-row>
+    <el-row> 
         <el-col :span="24">
             <div class="grid-content header">
                 <router-link to="/" @click.native="headerClick" class="mainLink"><span>Qlik Snippets</span></router-link>
@@ -104,6 +104,7 @@
         code: '',
         selected: '',
         remoteData: false,
+        isLoaded: true,
         styleApp: {
           height: '0px'
         },
@@ -127,6 +128,7 @@
 
         // this.code.code = converter.makeHtml(this.code.code);
 
+        // console.log(this.selected,code.id);
         if (this.selected != code.id) {
           this.selected = code.id;
           this.$router.push({ name: 'Snippets', params: { id: code.id.toString() } });
@@ -143,7 +145,7 @@
         for (var i = 0; i < _this.snippets.length; i++) {
           if (_this.snippets[i].id == _this.selected) {
             _this.code = _this.snippets[i];
-            _this.$router.push({ name: 'Snippets', params: { id: _this.selected }});
+            _this.$router.push({ name: 'Snippets', params: { id: _this.selected } });
             _this.code.description = converter.makeHtml(_this.code.description);
           }
         }
@@ -167,7 +169,7 @@
           type: 'error',
           duration: 2000
         });
-      },      
+      },
       getWindowHeight(event) {
         var _this = this;
         _this.styleApp.height = document.documentElement.clientHeight + 'px';
@@ -182,64 +184,81 @@
       //   _this.rest = false; 
       // }
 
-      var routerId = _this.$route.params.id;
+      
 
       this.$nextTick(function() {
+        var _this = this;
+        var routerId = _this.$route.params.id;
+
+        // if (newVal == true) {
+          if (_this.$route.params.id) {
 
 
-        if (_this.$route.params.id) {
+            var exists = false;
 
+            for (var i = 0; i < _this.snippets.length; i++) {
+              // console.log(exists);
+              if (_this.snippets[i].id.toString() == _this.$route.params.id.toString()) {
+                _this.code = _this.snippets[i];
+                _this.code.description = converter.makeHtml(_this.code.description);
+                exists = true;
+              }
+            }
 
-          var exists = false;
+            if (exists == true) {
+              _this.selected = _this.$route.params.id;
+            }
+            else {
+              _this.$router.push({ path: '/' });
 
-          for (var i = 0; i < _this.snippets.length; i++) {
-            // console.log(exists);
-            if (_this.snippets[i].id.toString() == _this.$route.params.id.toString()) {
-              exists = true;
+              this.$notify({
+                title: 'Error',
+                message: "Snippet (id = " + routerId + ") do not exists :(",
+                type: 'error',
+                duration: 4000
+              });
             }
           }
 
-          if (exists == true) {
-            _this.selected = _this.$route.params.id;
-          }
-          else {
-            _this.$router.push({ path: '/' });
+          // window.addEventListener('resize', this.getWindowWidth);
+          window.addEventListener('resize', this.getWindowHeight);
 
-            this.$notify({
-              title: 'Error',
-              message: "Snippet (id = " + routerId + ") do not exists :(",
-              type: 'error',
-              duration: 4000
-            });
-          }
-        }
-
-        // window.addEventListener('resize', this.getWindowWidth);
-        window.addEventListener('resize', this.getWindowHeight);
-
-        //Init
-        // this.getWindowWidth()
-        this.getWindowHeight();
+          //Init
+          // this.getWindowWidth()
+          this.getWindowHeight();
+        // }
       });
 
       if (_this.remoteData == false) {
+        
+        json.sort(function(a, b) {
+          return a.name.localeCompare(b.name);
+        });        
+        
         _this.snippets = json;
         for (var i = 0; i < _this.snippets.length; i++) {
           _this.snippets[i].class = false;
         }
       }
       else {
-        axios.get('https://s3.eu-west-2.amazonaws.com/qlik-snippets/snippets.json')
+        axios.get('https://ldb-extract-countnazgul.c9users.io:8081/getsnippets')
           .then(response => {
             _this.snippets = response.data;
             // console.log(response.data);
             for (var i = 0; i < _this.snippets.length; i++) {
               _this.snippets[i].class = false;
             }
+
+            _this.isLoaded = true;
           })
           .catch(e => {
             this.errors.push(e);
           });
+      }
+    },
+    watch: {
+      isLoaded: function(newVal, oldVal) {
+
       }
     },
     updated: function() {

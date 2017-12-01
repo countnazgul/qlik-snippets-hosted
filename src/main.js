@@ -18,7 +18,8 @@ import VueClipboards from 'vue-clipboards';
 import router from './router';
 Vue.use(router);
 Vue.use(VueAnalytics, {
-  id: 'UA-108541744-1'
+  id: 'UA-108541744-1',
+  router
 });
 
 
